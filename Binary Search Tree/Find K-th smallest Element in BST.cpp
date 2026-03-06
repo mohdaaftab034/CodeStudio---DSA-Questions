@@ -35,30 +35,27 @@ int kthSmallest(BinaryTreeNode<int>* root, int k) {
 
 // ------------------Solution -> 2-----------------------
 #include <bits/stdc++.h> 
+using namespace std;
 
-int solve(BinaryTreeNode<int>* root, int& i, int k) {
+void inorder(BinaryTreeNode<int>* root, vector<int>& ans) {
     // Base case
     if(root == NULL) {
-        return -1;
+        return;
     }
 
-    int left = solve(root -> left, i, k);
-
-    if(left != -1) {
-        return left;
-    }
-
-    i++;
-    if(i == k) {
-        return root -> data;
-    }
-
-    return solve(root -> right, i, k);
+    inorder(root->left, ans);
+    ans.push_back(root->data);
+    inorder(root->right, ans);
 }
 
 int kthSmallest(BinaryTreeNode<int>* root, int k) {
-    int i = 0;
-    int ans = solve(root, i, k);
+    vector<int> ans;
 
-    return ans;
+    inorder(root, ans);
+
+    if(k > ans.size()) {
+        return -1;
+    }
+
+    return ans[k-1];
 }
