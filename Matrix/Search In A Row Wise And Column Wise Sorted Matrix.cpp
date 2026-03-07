@@ -39,3 +39,32 @@ pair<int, int> search(vector<vector<int>> matrix, int x)
 
     return {-1, -1};
 }
+
+
+
+//-----------------------Solution----------------------------
+#include <bits/stdc++.h> 
+pair<int, int> search(vector<vector<int>> matrix, int target)
+{
+    int m = matrix.size();
+    int n = matrix[0].size();
+
+    int row = 0;
+    int col = n-1;
+
+    while(row < m && col >= 0) {
+        
+        if(matrix[row][col] == target) {
+            return {row, col};
+        }
+
+        else if(matrix[row][col] < target) {
+            row++;
+        } 
+        else {
+            col--;
+        }
+    }
+
+    return {-1, -1};
+}
